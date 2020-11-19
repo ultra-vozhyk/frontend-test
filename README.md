@@ -10,10 +10,10 @@ The page consists from the header (contains meta info about daily report like re
 - Images
 
 ## API
-Each section receives the paginated list of data from graphql endpoint. The shape of the response is always the same only the shape of list item is different.  There are also 3 more endpoints available: for adding item to the list, updating item and deleting item. 
+Each section receives the paginated list of data from graphql endpoint. The shape of the response is always the same only the shape of list item is different. There are also 3 more endpoints available: for adding item to the list, updating item and deleting item. 
 
 ## Save behaviour
-Data is autosaved. When data is saved the text in status bar gets updated and shows the last save date and time.
+Data is autosaved. After data is saved the text in status bar gets updated and shows the last save date and time.
 
 ## Section UX
 Each section has "Add button": when pressed a new empty field should appear in UI, but no _item create event_ should be triggered (we don't want to fill database with empty values). After field has a valid input only then _create event_ should be send to the backend.
