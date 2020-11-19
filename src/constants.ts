@@ -1,0 +1,1 @@
+export const apiUrl = 'https://api.staging.capmo.de';
