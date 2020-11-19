@@ -19,6 +19,9 @@ Data is autosaved. When data is saved the text in status bar gets updated and sh
 Each section has "Add button": when pressed a new empty field should appear in UI, but no _item create event_ should be triggered (we don't want to fill database with empty values). After field has a valid input only then _create event_ should be send to the backend.
 The section should display not more than 5 items at the start. If more is available then "Read more" button should be displayed. After pressed, the next 5 items are added to the list.
 
+## Task
+Outline the solution and build special occurances section.
+
 ## Example
 You can check how the actual feature works [here](https://app.staging.capmo.de/projects/a5b60f3a-8e94-11ea-be39-b300a4e40f96/new-daily-reports/2020-11-08).
 
