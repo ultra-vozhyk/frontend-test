@@ -1,46 +1,23 @@
-# Getting Started with Create React App
+## Idea
+Daily Report is a feature which allows a construction manager to report his/her observations after the visit to construction site on a daily basis. 
+You can find actual designs [here](https://github.com/capmo/frontend-test/tree/master/designs).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The page consists from the header (contains meta info about daily report like reporter name, address, date etc.), status bar, and actual data sections which are:
+- Visits (stands for coming and leaving time of a reporter)
+- Weather 
+- Attendances (stands for companies which were present on the construction side)
+- Special occurances (all releavent notes)
+- Images
 
-## Available Scripts
+Each section receives the paginated list of data from graphql endpoint. There are also 3 more endpoints available: for adding item to the list, updating item and deleting item. 
 
-In the project directory, you can run:
+Data is autosaved. When data is saved the text in status bar gets updated and shows the last save date and time.
 
-### `yarn start`
+Each section has "Add button": when pressed a new empty field should appear in UI, but no item create event should be triggered (we don't want to fill database with empty values). After the field has a valid input then the create event should be send to the backend.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+You can check how the actual feature works [here](https://app.staging.capmo.de/projects/a5b60f3a-8e94-11ea-be39-b300a4e40f96/new-daily-reports/2020-11-08).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Test login data:
+email: test1a@capmo.de
+password: 123456qwerty
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
