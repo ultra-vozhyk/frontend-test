@@ -9,7 +9,7 @@ The page consists from the header (contains meta info about daily report like re
 - Special occurances (all releavent notes)
 - Images
 
-## API
+<!-- ## API
 Each section receives the paginated list of data from graphql endpoint. The shape of the response is always the same only the shape of list item is different. There are also 3 more endpoints available: for adding item to the list, updating item and deleting item. 
 
 ## Save behaviour
@@ -20,7 +20,7 @@ Each section has "Add button": when pressed a new empty field should appear in U
 The section should display not more than 5 items at the start. If more is available then "Read more" button should be displayed. After pressed, the next 5 items are added to the list.
 
 ## Task
-Outline the solution and build special occurances section.
+Outline the solution and build special occurances section. -->
 
 ## Example
 You can check how the actual feature works [here](https://app.staging.capmo.de/projects/a5b60f3a-8e94-11ea-be39-b300a4e40f96/new-daily-reports/2020-11-08).
