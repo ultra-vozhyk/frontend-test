@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const getSpecialOccurrences = gql`
-  query DailyReportSpecialOccurrencesQuery($input: DailyReportItemInput!) {
+  query DailyReportSpecialOccurrencesQuery($input: DailyReportSpecialOccurrencesInput!) {
     result: dailyReportSpecialOccurrences(input: $input) {
       items {
         id
@@ -22,7 +22,7 @@ export enum OrderDirection {
   desc = "desc",
 }
 
-export interface DailyReportItemInput {
+export interface DailyReportSpecialOccurrencesInput {
   after?: string | null;
   limit?: number | null;
   orderDirection?: OrderDirection | null;
@@ -50,5 +50,5 @@ export interface DailyReportSpecialOccurrencesQuery {
 }
 
 export interface DailyReportSpecialOccurrencesQueryVariables {
-  input: DailyReportItemInput;
+  input: DailyReportSpecialOccurrencesInput;
 }
