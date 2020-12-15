@@ -77,4 +77,4 @@ const SpecialOccurence: React.FC<SpecialOccurenceProps> = ({
   );
 };
 
-export default SpecialOccurence;
+export default React.memo(SpecialOccurence);
