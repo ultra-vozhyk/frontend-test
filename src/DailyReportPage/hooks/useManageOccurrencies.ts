@@ -27,12 +27,13 @@ import {
   updateSpecialOccurrence,
 } from "../api/updateSpecialOccurrence";
 import { debounce } from "@material-ui/core";
-import { generateOccurrence, updateOccurenciesData } from "../helpers";
+import { generateOccurrence, recalculateSummary } from "../helpers";
 
 export const useManageOccurrencies = (
   date: string,
   projectId: string,
-  orderDirection: OrderDirection
+  orderDirection: OrderDirection,
+  updateDelay: number = 300
 ) => {
   const client = useApolloClient();
   const localData = useRef<Record<string, any>>({});
@@ -66,23 +67,7 @@ export const useManageOccurrencies = (
   const { data } = useQuery<
     DailyReportSpecialOccurrencesQuery,
     DailyReportSpecialOccurrencesQueryVariables
-  >(getSpecialOccurrences, {
-    ...baseQueryOptions,
-    onCompleted: (data) => {
-      if (!data.result.items.some((el) => localData.current[el.id])) {
-        client.writeQuery({
-          ...baseQueryOptions,
-          data: {
-            result: updateOccurenciesData(
-              data.result,
-              Object.values(localData.current),
-              orderDirection
-            ),
-          },
-        });
-      }
-    },
-  });
+  >(getSpecialOccurrences, baseQueryOptions);
 
   const removeFromCache = useCallback(
     <T>(id: string, cache: ApolloCache<T>) => {
@@ -91,19 +76,27 @@ export const useManageOccurrencies = (
       );
 
       if (data) {
-        const itemToRemove = data.result?.items.find((el) => el.id === id);
+        const nextItems = data.result?.items.filter((el) => el.id !== id);
 
-        if (itemToRemove) {
-          cache.evict({ id: cache.identify(itemToRemove) });
-          cache.gc();
-        }
+        cache.writeQuery<DailyReportSpecialOccurrencesQuery>({
+          ...baseQueryOptions,
+          data: {
+            result: {
+              ...data.result,
+              ...recalculateSummary(data.result.total, nextItems.length, -1),
+              items: nextItems,
+            },
+          },
+        });
+
+        cache.gc();
       }
     },
     [baseQueryOptions]
   );
 
   const create = useCallback(() => {
-    const newOccurrence = generateOccurrence(projectId);
+    const newOccurrence = generateOccurrence(projectId, date);
     localData.current[newOccurrence.id] = newOccurrence;
 
     const data = client.readQuery<DailyReportSpecialOccurrencesQuery>(
@@ -111,18 +104,22 @@ export const useManageOccurrencies = (
     );
 
     if (data?.result) {
+      const {
+        result: { items, total },
+      } = data;
+
       client.writeQuery({
         ...baseQueryOptions,
         data: {
-          result: updateOccurenciesData(
-            data.result,
-            [newOccurrence],
-            orderDirection
-          ),
+          result: {
+            ...data.result,
+            ...recalculateSummary(total, items.length, 1),
+            items: [newOccurrence, ...items],
+          },
         },
       });
     }
-  }, [projectId, orderDirection, client, baseQueryOptions]);
+  }, [projectId, date, client, baseQueryOptions]);
 
   const update = useCallback(
     (id: string, description: string) => {
@@ -177,7 +174,10 @@ export const useManageOccurrencies = (
     [client, removeFromCache, removeMutation]
   );
 
-  const defferedUpdate = useMemo(() => debounce(update, 200), [update]);
+  const defferedUpdate = useMemo(() => debounce(update, updateDelay), [
+    updateDelay,
+    update,
+  ]);
 
   return {
     data,

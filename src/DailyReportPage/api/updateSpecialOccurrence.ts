@@ -6,6 +6,7 @@ export const updateSpecialOccurrence = gql`
   ) {
     updateSpecialOccurrence(input: $input) {
       id
+      description
     }
   }
 `;

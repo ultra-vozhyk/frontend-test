@@ -2,10 +2,11 @@ import { gql } from "@apollo/client";
 
 export const createSpecialOccurrenceMutation = gql`
   mutation DailyReportCreateSpecialOccurrenceMutation(
-  $input: CreateSpecialOccurrenceInput!
+    $input: CreateSpecialOccurrenceInput!
   ) {
     createSpecialOccurrence(input: $input) {
       id
+      description
     }
   }
 `;
