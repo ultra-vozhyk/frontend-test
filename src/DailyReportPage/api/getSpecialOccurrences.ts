@@ -1,7 +1,9 @@
-import { gql } from "@apollo/client";
+import { gql, StoreValue } from "@apollo/client";
 
 export const getSpecialOccurrences = gql`
-  query DailyReportSpecialOccurrencesQuery($input: DailyReportSpecialOccurrencesInput!) {
+  query DailyReportSpecialOccurrencesQuery(
+    $input: DailyReportSpecialOccurrencesInput!
+  ) {
     result: dailyReportSpecialOccurrences(input: $input) {
       items {
         id
@@ -35,6 +37,7 @@ export interface DailyReportSpecialOccurrencesQuery_result_items {
   id: string;
   description: string | null;
   date: string;
+  [storeFieldName: string]: StoreValue;
 }
 
 export interface DailyReportSpecialOccurrencesQuery_result {
