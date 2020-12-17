@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import { OrderDirection } from "./api/getSpecialOccurrences";
-import SpecialOccurence from "./components/SpecialOccurence";
+import { OrderDirection } from "../api/getSpecialOccurrences";
+import SpecialOccurence from "./SpecialOccurence";
 import {
   Box,
   Button,
@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import ErrorIcon from "@material-ui/icons/Error";
-import { useManageOccurrencies } from "./hooks/useManageOccurrencies";
+import { useManageOccurrencies } from "../hooks/useManageOccurrencies";
 
 type DailyReportPageProps = {
   projectId: string;
@@ -40,22 +40,19 @@ const useStyles = makeStyles({
   },
 });
 
-export const DailyReportPage: FC<DailyReportPageProps> = ({
-  projectId,
-  date,
-}) => {
+const DailyReportPage: FC<DailyReportPageProps> = ({ projectId, date }) => {
   const classNames = useStyles();
 
   const {
     data,
     create: handleCreate,
-    defferedUpdate: handleUpdate,
+    deferredUpdate: handleUpdate,
     remove: handleRemove,
   } = useManageOccurrencies(date, projectId, OrderDirection["desc"]);
 
   const renderForm = () => (
     <form noValidate autoComplete="off">
-      {data?.result?.items.map((obj) => (
+      {data.map((obj) => (
         <SpecialOccurence
           key={obj.id}
           id={obj.id}
@@ -88,6 +85,7 @@ export const DailyReportPage: FC<DailyReportPageProps> = ({
             Special Occurrencies
           </Typography>
           <Button
+            data-testid="add-occurrence-btn"
             variant="contained"
             color="primary"
             startIcon={<AddIcon />}
@@ -96,8 +94,10 @@ export const DailyReportPage: FC<DailyReportPageProps> = ({
             create
           </Button>
         </Box>
-        {data?.result.items.length ? renderForm() : renderEmpty()}
+        {data.length ? renderForm() : renderEmpty()}
       </Paper>
     </Container>
   );
 };
+
+export default DailyReportPage;

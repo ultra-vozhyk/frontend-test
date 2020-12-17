@@ -23,5 +23,3 @@ export const recalculateSummary = (
   count,
   total: total ? total + delta : total,
 });
-
-export const recalculateCounts = () => {};

@@ -174,16 +174,16 @@ export const useManageOccurrencies = (
     [client, removeFromCache, removeMutation]
   );
 
-  const defferedUpdate = useMemo(() => debounce(update, updateDelay), [
+  const deferredUpdate = useMemo(() => debounce(update, updateDelay), [
     updateDelay,
     update,
   ]);
 
   return {
-    data,
+    data: data?.result.items ?? [],
     create,
     update,
-    defferedUpdate,
+    deferredUpdate,
     remove,
   };
 };

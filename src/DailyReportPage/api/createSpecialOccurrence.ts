@@ -21,6 +21,7 @@ export interface CreateSpecialOccurrenceInput {
 export interface DailyReportCreateSpecialOccurrenceMutation_createSpecialOccurrence {
   __typename: "SpecialOccurrence";
   id: string;
+  description: string;
 }
 
 export interface DailyReportCreateSpecialOccurrenceMutation {

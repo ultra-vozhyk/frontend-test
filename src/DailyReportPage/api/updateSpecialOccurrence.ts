@@ -14,6 +14,7 @@ export const updateSpecialOccurrence = gql`
 export interface DailyReportUpdateSpecialOccurrenceMutation_updateSpecialOccurrence {
   __typename: "SpecialOccurrence";
   id: string;
+  description: string;
 }
 
 export interface DailyReportUpdateSpecialOccurrenceMutation {
