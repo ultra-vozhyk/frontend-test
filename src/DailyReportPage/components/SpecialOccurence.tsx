@@ -55,7 +55,7 @@ const SpecialOccurence: React.FC<SpecialOccurenceProps> = ({
   };
 
   return (
-    <div className={classNames.root}>
+    <div className={classNames.root} data-testid={`${id}-occurrence-item`}>
       <TextField
         multiline
         fullWidth
@@ -70,6 +70,7 @@ const SpecialOccurence: React.FC<SpecialOccurenceProps> = ({
         disableElevation
         disableRipple
         onClick={handleRemove}
+        data-testid={`${id}-occurrence-item__remove-btn`}
       >
         <CancelIcon className={classNames.removeIcon} />
       </Button>
